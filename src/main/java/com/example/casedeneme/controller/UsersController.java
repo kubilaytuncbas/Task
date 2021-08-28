@@ -57,12 +57,21 @@ public class UsersController {
         userService.update(user);
         return "redirect:/index";
     }
-    @PostMapping("/delete/{id}")
-    public String deleteUser(@PathVariable int id,Model theModel){
+    @GetMapping ("/delete/{id}")
+    public String deleteUser(@PathVariable int id){
          User user=userService.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid user id:"+id));
-         theModel.addAttribute("user",user);
          userService.delete(id);
          return "redirect:/index";
+    }
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/login-error")
+    public String loginError(Model model){
+        model.addAttribute("loginError", true);
+        return "login";
     }
 
 
